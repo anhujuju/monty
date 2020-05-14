@@ -1,35 +1,67 @@
-#ifndef MONTY_H
-#define MONTY_H
+#ifndef _MONTY_
+#define _MONTY_
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <ctype.h>
 
-#define UNUSED(x) (void)(x)
-#define LINE_MAX 1024
-
+/**
+ * struct stack_s - doubly linked list representation of a stack (or queue)
+ * @n: integer
+ * @prev: points to the previous element of the stack (or queue)
+ * @next: points to the next element of the stack (or queue)
+ *
+ * Description: doubly linked list node structure
+ * for stack, queues, LIFO, FIFO Holberton project
+ */
 typedef struct stack_s
 {
-	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+int n;
+struct stack_s *prev;
+struct stack_s *next;
 } stack_t;
 
+/**
+ * struct instruction_s - opcode and its function
+ * @opcode: the opcode
+ * @f: function to handle the opcode
+ *
+ * Description: opcode and its function
+ * for stack, queues, LIFO, FIFO Holberton project
+ */
 typedef struct instruction_s
 {
-	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern int SQ;
-instruction_t *parse_line(char *line);
-void free_stack(stack_t *head);
-char *get_opcode(char *string);
-int is_int(char *str);
 
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
+typedef struct gbl_frees_s
+{
+FILE *fd;
+char *str;
+char *num;
+char *line_buff;
+int status;
+} gbl_frees_t;
 
-
+#ifdef GLOBALS
+gbl_frees_t f;
+#else
+extern gbl_frees_t f;
 #endif
+
+void get_func(stack_t **stack, unsigned int line_number);
+char *getlineAndTok(void);
+void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
+void _pint(stack_t **stack, unsigned int line_number);
+void _pop(stack_t **stack, unsigned int line_number);
+void _swap(stack_t **stack, unsigned int line_number);
+void _add(stack_t **stack, unsigned int line_number);
+void _nop(stack_t **stack, unsigned int line_number);
+void free_dlistint(stack_t *head);
+
+#endif /**MONTY*/

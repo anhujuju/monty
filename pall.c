@@ -1,22 +1,18 @@
 #include "monty.h"
 
 /**
- * pall - prints all values on the stack, starting from the top of the stack.
- * @stack: the stack
- * @line_number: the current line number
- *
- * Return: void
+ *_pall - prints elements in a linked list
+ *@stack: pointer to first element of the list
+ *@line_number: number of the line in file
  */
-void pall(stack_t **stack, unsigned int line_number)
+
+void _pall(stack_t **stack, __attribute__((unused))unsigned int line_number)
 {
-	stack_t *tmp;
+	stack_t *h = *stack;
 
-	UNUSED(line_number);
-
-	tmp = *stack;
-	while (tmp != NULL)
+	while (h != NULL)
 	{
-		printf("%d\n", tmp->n);
-		tmp = tmp->next;
+		printf("%d\n", h->n);
+		h = h->next;
 	}
 }
